@@ -44,4 +44,25 @@ taskRouter.post('/', (req, res) => {
     })
 })
 
+//DELETE
+
+taskRouter.delete('/removeTask/:id', (req, res) => {
+let idToDelete = req.params.id;
+
+let queryText = `DELETE FROM "tasks" WHERE "id" = $1;`;
+
+pool.query(queryText, [idToDelete])
+    .then ((result) => {
+        console.log('successfully deleted id', idToDelete)
+        res.sendStatus(200);
+    })
+    .catch((err) => {
+        console.log('Error deleting id', error);
+        res.sendStatus(500);
+    });
+})
+
+
+
+
 module.exports = taskRouter;

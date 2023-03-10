@@ -1,9 +1,28 @@
 $(document).ready(onReady);
 
 function onReady() {
-    $('#addTaskBtn').on("click", addTask)
+    $('#addTaskBtn').on('click', addTask)
+
+    $('#viewTasks').on('click', '#deleteTaskBtn', deleteTask)
 
     getTasks();
+}
+
+function deleteTask() {
+    console.log('In deleteTask');
+    let idToDelete = $(this).parent().parent().data().id;
+
+    $.ajax({
+        type: 'DELETE',
+        url: `/tasks/removeTask/${idToDelete}`
+    })
+    .then((result) => {
+        console.log('Successfully deleted:', idToDelete)
+        getTasks()
+    })
+    .catch((err) => {
+        console.log('Error deleting kolalas', error)
+    })
 }
 
 function setupClickListeners() {
@@ -51,6 +70,9 @@ function getTasks() {
         console.log('error is tasks/get')
     })
 } // end getTasks
+
+//DELETE
+
 
 //POST
 // function saveTask(newTask) {
