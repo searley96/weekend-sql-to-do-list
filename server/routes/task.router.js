@@ -33,7 +33,7 @@ taskRouter.post('/', (req, res) => {
     let queryText = `INSERT INTO "tasks" ("title", "complete") 
     VALUES ($1, $2);`;
 
-    pool.query(queryText, [newTask.task, newTask.complete === false])
+    pool.query(queryText, [newTask.task, false])
     .then((result) => {
         console.log('Success! Task added', newTask);
         res.sendStatus(201)
@@ -60,6 +60,24 @@ pool.query(queryText, [idToDelete])
         console.log('Error deleting id', error);
         res.sendStatus(500);
     });
+})
+
+//PUT
+//change "complete" from false to true
+
+taskRouter.put('/changeToTrue/:id', (req, res) => {
+    console.log('inside of /changeToTrue/', req.params.id)
+    const idStatusChange = req.params.id;
+    const sqlText = `UPDATE "tasks" SET "complete" = true WHERE id=$1`
+
+    pool.query(sqlText, [idStatusChange])
+    .then((result) => {
+        console.log('Task ID', idStatusChange, 'marked')
+        res.sendStatus(200)
+    })
+    .catch((error) => {
+        res.sendStatus(500)
+    })
 })
 
 

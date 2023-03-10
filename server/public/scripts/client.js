@@ -6,8 +6,11 @@ function onReady() {
     $('#viewTasks').on('click', '#deleteTaskBtn', deleteTask)
 
     getTasks();
+
+    $('#viewTasks').on('click', '#completeTaskBtn', completeToTrue)
 }
 
+//DELETE
 function deleteTask() {
     console.log('In deleteTask');
     let idToDelete = $(this).parent().parent().data().id;
@@ -25,16 +28,41 @@ function deleteTask() {
     })
 }
 
-function setupClickListeners() {
-    $( '#addTaskBtn' ).on( 'click', function(){
-      console.log( 'in addButton on click' );
+//PUT
+//change "complete" from false to true
+
+function completeToTrue() {
+    console.log('task complete', $(this).parent().parent().data().id);
+    const idStatusChange = $(this).parent().parent().data().id;
+
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/changeToTrue/${idStatusChange}`
+    })
+    .then((response) => {
+        getTasks()
+        console.log('Status change successful');
+    })
+    .catch((error) => {
+        alert('Status change unsuccessful');
+    });
+};
+
+
+
+//task submits when Add Task button clicked
+// function setupClickListeners() {
+//     $( '#addTaskBtn' ).on( 'click', function(){
+//       console.log( 'in addButton on click' );
      
-      let taskToSend = {
-        task: $('#taskIn').val()
-      }
+//       let taskToSend = {
+//         task: $('#taskIn').val()
+//       }
       
-    }); 
-  };
+//     }); 
+//   };
+
+//task submits when Add Task button clicked
 
 function addTask() {
     console.log('in addTask')
@@ -71,7 +99,6 @@ function getTasks() {
     })
 } // end getTasks
 
-//DELETE
 
 
 //POST
