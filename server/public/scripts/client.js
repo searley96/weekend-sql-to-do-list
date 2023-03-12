@@ -48,20 +48,6 @@ function completeToTrue() {
     });
 };
 
-
-
-//task submits when Add Task button clicked
-// function setupClickListeners() {
-//     $( '#addTaskBtn' ).on( 'click', function(){
-//       console.log( 'in addButton on click' );
-     
-//       let taskToSend = {
-//         task: $('#taskIn').val()
-//       }
-      
-//     }); 
-//   };
-
 //task submits when Add Task button clicked
 
 function addTask() {
@@ -101,25 +87,6 @@ function getTasks() {
 
 
 
-//POST
-// function saveTask(newTask) {
-//     console.log('in saveTask', newTask)
-
-//     $.ajax({
-//         type: 'POST',
-//         url: '/tasks',
-//         data: newTask
-//     })
-//     .then((response) => {
-//         console.log('response from server', response);
-//         //add function to render
-//         getTasks()
-//     })
-//     .catch((err) => {
-//         console.log('error in post')
-//     })
-// }
-
 function renderTasks(tasks) {
     console.log('in renderTasks');
 
@@ -130,10 +97,14 @@ function renderTasks(tasks) {
     $('#viewTasks').append(`
     <tr data-id=${job.id}>
         <th>${job.title}</th>
-        <th>${job.complete}</th>
-        <th><button id='completeTaskBtn'>Completed</button></th>
+        <th id='taskComplete${job.id}'>${job.complete}</th>
+        <th><button id='completeTaskBtn'>Complete</button></th>
         <th><button id='deleteTaskBtn'>Delete</button></th>
     </tr>
     `)
- }
+    if (job.complete === true) {
+        console.log('job complete')
+        $(`#taskComplete${job.id}`).addClass("changeToGreen");
+    }
+  }
 }
