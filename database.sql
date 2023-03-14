@@ -1,14 +1,16 @@
 --create table
 CREATE TABLE "tasks" (
-	"id" serial primary key,
-	"name" varchar(80) not null,
-	"completed" boolean default false
+  "id" serial primary key,
+  "title" varchar(200),
+  "complete" boolean
 );
 
-
+--test data
+INSERT INTO "tasks" ("title", "complete")
+VALUES ('wash dishes', false);
 
 --test data
-INSERT INTO "tasks" ("name", "completed") 
+INSERT INTO "tasks" ("title", "complete") 
 VALUES
 		('laundry', TRUE),
 		('dishes', FALSE),
