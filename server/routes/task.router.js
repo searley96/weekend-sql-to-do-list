@@ -1,14 +1,17 @@
 const express = require('express');
 const taskRouter = express.Router();
-const pg = require('pg');
+// const pg = require('pg');
 
 
-// DB CONNECTION
-const pool = new pg.Pool({
-    database: 'weekend-to-do-app',
-    host: 'localhost',
-    port: 5432
-});
+// // DB CONNECTION
+// const pool = new pg.Pool({
+//     database: 'weekend-to-do-app',
+//     host: 'localhost',
+//     port: 5432
+// });
+
+//pool/pg
+const pool = require("../modules/pool.js");
 
 //GET
 taskRouter.get('/', (req, res) => {
